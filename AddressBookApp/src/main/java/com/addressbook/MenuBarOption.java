@@ -1,57 +1,50 @@
 package com.addressbook;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
+//driving option
 public class MenuBarOption {
 	public static void menu() {
-		ContactOfPerson ContactDetails = null;
-		AddressBookMain ab = new AddressBookMain();
-		int choice;
+
+		Scanner scanner = new Scanner(System.in);
+		Service service = new Service();
+		System.out.println("**Menu***");
+
+		String answer;
+
 		do {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Enter ur choice \n 1 : Add \n 2 : Edit \n 3 : Delete \n 4 : Display ");
-			choice = sc.nextInt();
+
+			System.out.println(
+					"\nchoices are :\n1. create new AddressBook \n2. Add Person \n3. Delete Person \n4. Update Person . ");
+			System.out.println("\nEnter your choice ");
+			int choice = scanner.nextInt();
+
 			switch (choice) {
 			case 1:
-				ab.add();
+
+				service.createAddressBook();
 				break;
 			case 2:
-
-				System.out.println("Enter the ContactDetails Name to edit details..");
-				String firstName = sc.next();
-				ArrayList<ContactOfPerson> personList = ab.al;
-				for (int i = 0; i < personList.size(); i++) {
-					if (personList.get(i).firstName.equals(firstName)) {
-						ContactOfPerson ContactDetail = personList.get(i);
-
-						ab.edit(ContactDetail);
-
-					} else {
-						System.out.println(firstName + " is not exists ");
-					}
-				}
+				System.out.println("\nGive the name to address book ");
+				String addressBookName1 = scanner.next();
+				service.addPerson(addressBookName1);
 				break;
 			case 3:
-				System.out.println("Enter the ContactDetails name to Delete the Details");
-				firstName = sc.next();
-				ArrayList<ContactOfPerson> personLists = ab.al;
-				for (int i = 0; i < personLists.size(); i++) {
-					if (personLists.get(i).firstName.equals(firstName)) {
-						ContactOfPerson Contact = personLists.get(i);
-						ab.delete(Contact);
-					}
-				}
-
+				service.deletePerson();
 				break;
-
 			case 4:
-				System.out.println(ab.al);
+				service.updatePerson();
 				break;
-			default:
-				System.out.println("Enter num from 1 to 4");
-			}
-		} while (choice < 5);
-	}
+			case 5:
 
+				break;
+			}
+			System.out.println("\n Do you want to continue :? type (yes for y && no for n) ");
+			answer = scanner.next();
+		} while (answer.equalsIgnoreCase("y"));
+
+		if (answer.equalsIgnoreCase("n")) {
+			System.out.println("thank you.....");
+		}
+
+	}
 }
