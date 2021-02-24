@@ -1,5 +1,9 @@
 package com.addressbook;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -7,7 +11,7 @@ public class AddressBook {
 	
 	//arraylist  and hashmap implementation
     public static Scanner sc = new Scanner(System.in);
-    public ArrayList<ContactOfPerson> contactList ;
+    public static ArrayList<ContactOfPerson> contactList ;
     public HashMap<String, ArrayList<ContactOfPerson>> personByState;
     public HashMap<String, ArrayList<ContactOfPerson>> personByCity;
 
@@ -119,6 +123,7 @@ public class AddressBook {
 
     }
 
+   
     public void getPersonNameByCity(String cityName) {
         List<ContactOfPerson> list  = contactList.stream().filter(contactName ->contactName.getCity().equals(cityName)).collect(Collectors.toList());
         for(ContactOfPerson contact: list){
@@ -126,6 +131,35 @@ public class AddressBook {
             System.out.println("Last Name: "+contact.getLastName());
         }
     }
+    
+    //file IO operation
+    public static void writeData(AddressBookMain addressBookMain) {
+        StringBuffer personBuffer = new StringBuffer();
+        contactList.forEach(person -> {
+            String personDataString = person.toString().concat("\n");
+            personBuffer.append(personDataString);
+        });
+        try {
+            Files.write(Paths.get("Data.txt"), personBuffer.toString().getBytes());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public static void readData(AddressBookMain addressBookMain) {
+        try {
+            Files.lines(new File("Data.txt").toPath()).map(String::trim).forEach(System.out::println);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+
 
 
 }

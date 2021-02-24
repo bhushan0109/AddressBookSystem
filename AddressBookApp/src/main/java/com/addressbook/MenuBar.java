@@ -19,7 +19,9 @@ public class MenuBar {
 			System.out.println("8.Sort Contact By Name");
 			System.out.println("9.Sort Contact By City");
 			System.out.println("10.Sort Contact By State");
-			System.out.println("11.Exit");
+			System.out.println("11.Write data");
+			System.out.println("12.Read data");
+			System.out.println("13.Exit");
 
 			System.out.println("Enter choice: ");
 			int option = sc.nextInt();
@@ -85,13 +87,17 @@ public class MenuBar {
 				break;
 
 			case 11:
-				flag = false;
-				break;
+                AddressBook.writeData(addressBookMain);
+                break;
+            case 12:
+                AddressBook.readData(addressBookMain);
+                break;
+            case 13:
+                flag = false;
+                break;
 			}
 		}
 
 	}
 
 }
-
-
