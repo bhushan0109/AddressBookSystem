@@ -1,6 +1,10 @@
 package com.addressbook;
 
+import java.io.IOException;
 import java.util.Scanner;
+
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 public class MenuBar {
 	public static void main(String[] args) {
@@ -9,19 +13,21 @@ public class MenuBar {
 		Scanner sc = new Scanner(System.in);
 		boolean flag = true;
 		while (flag) {
-			System.out.println("1.Add New Address Book");
-			System.out.println("2.Search Contact from a city");
-			System.out.println("3.Search Contact from a State");
-			System.out.println("4.View contact By State ");
-			System.out.println("5.View Contact by city ");
-			System.out.println("6.Count Contact By State");
-			System.out.println("7.Count Contact By City");
-			System.out.println("8.Sort Contact By Name");
-			System.out.println("9.Sort Contact By City");
-			System.out.println("10.Sort Contact By State");
-			System.out.println("11.Write data");
-			System.out.println("12.Read data");
-			System.out.println("13.Exit");
+			   System.out.println("1.Add New Address Book");
+	            System.out.println("2.Search Contact from a city");
+	            System.out.println("3.Search Contact from a State");
+	            System.out.println("4.View contact By State ");
+	            System.out.println("5.View Contact by city ");
+	            System.out.println("6.Count Contact By State");
+	            System.out.println("7.Count Contact By City");
+	            System.out.println("8.Sort Contact By Name");
+	            System.out.println("9.Sort Contact By City");
+	            System.out.println("10.Sort Contact By State");
+	            System.out.println("11.Write data");
+	            System.out.println("12.Read data");
+	            System.out.println("13.Write Data in CSV file");
+	            System.out.println("14.Read data from CSV file");
+	            System.out.println("15.Exit");
 
 			System.out.println("Enter choice: ");
 			int option = sc.nextInt();
@@ -93,6 +99,22 @@ public class MenuBar {
                 AddressBook.readData(addressBookMain);
                 break;
             case 13:
+                try {
+                    AddressBook.writeDataToCSV();
+                } catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case 14:
+                try {
+                    AddressBook.readDataUsingCSV();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            case 15:
                 flag = false;
                 break;
 			}
